@@ -34,7 +34,9 @@ def minOperations(n):
     op_list = []
     if is_prime(n):
         return n
-    if n <= 1 or not (type(n) is int):
+    if n == 1:
+        return 1
+    if n <= 0 or not (type(n) is int):
         return 0
     factor = calculate_factors(n)
     for i, value in enumerate(factor):
