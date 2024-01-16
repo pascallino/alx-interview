@@ -6,66 +6,59 @@ write a method that calculates the fewest number of operations
 needed to result in exactly n H characters in the file."""
 
 
-def calculate_factors(number):
-    """ calculate factors of n-0. Minimum Operations  """
-    factors = []
-    for i in range(1, number + 1):
-        if number % i == 0:
-            factors.append(i)
-    return factors
-
-
-def is_prime(number):
-    """calculate prime number 0. Minimum Operations"""
-    if number < 2:
-        return False
-    for i in range(2, int(number**0.5) + 1):
-        if number % i == 0:
-            return False
-    return True
-
-
 def minOperations(n):
-    """ 0. Minimum Operations """
-    copy = 1
-    getindex = 0
-    numcp = 0
-    div = 0
-    op_list = []
-    if not n:
-        return 0
-    if n <= 1 or not (type(n) is int):
-        return 0
-    factor = calculate_factors(n)
-    for i, value in enumerate(factor):
-        if i < getindex:
+    '''calculates the fewest number of
+    operations needed to result in exactly n H
+    characters in this file.
+    Returns:
+        Integer : if n is impossible to achieve, return 0
+    '''
+    pasted_chars = 1  # how many chars in the file
+    clipboard = 0  # how many H's copied
+    counter = 0  # operations counter
+
+    while pasted_chars < n:
+        # if did not copy anything yet
+        if clipboard == 0:
+            # copyall
+            clipboard = pasted_chars
+            # increment operations counter
+            counter += 1
+
+        # if haven't pasted anything yet
+        if pasted_chars == 1:
+            # paste
+            pasted_chars += clipboard
+            # increment operations counter
+            counter += 1
+            # continue to next loop
             continue
-        if (factor[i] + factor[i] in factor and i != 0):
-            getindex = factor.index(factor[i] + factor[i])
-            copy = factor[i]
-            op_list.append('Copy All')
-            op_list.append('Paste')
-            i = getindex
-        elif ((i + 1) < len(factor) and factor[i + 1] == n):
-            op_list.append('Copy All')
-            copy = factor[i]
-            div = int(factor[i + 1]/factor[i]) - 1
-            for k in range(div):
-                op_list.append('Paste')
-            return len(op_list)
-        elif i == 0 and i + 1 < len(factor):
-            op_list.append('Copy All')
-            copy = 1
-            for k in range(factor[i + 1] - factor[i]):
-                op_list.append('paste')
-        elif i + 1 < len(factor):
-            numcp = factor[i]
-            for k in range(n):
-                numcp = numcp + copy
-                op_list.append('paste')
-                if numcp > n:
-                    return 0
-                if numcp in factor:
-                    getindex = factor.index(numcp)
-                    break
-    return (len(op_list))
+
+        remaining = n - pasted_chars  # remaining chars to Paste
+        # check if impossible by checking if clipboard
+        # has more than needed to reach the number desired
+        # which also means num of chars in file is equal
+        # or more than in the clipboard.
+        # in both situations it's impossible to achieve n of chars
+        if remaining < clipboard:
+            return 0
+
+        # if can't be devided
+        if remaining % pasted_chars != 0:
+            # paste current clipboard
+            pasted_chars += clipboard
+            # increment operations counter
+            counter += 1
+        else:
+            # copyall
+            clipboard = pasted_chars
+            # paste
+            pasted_chars += clipboard
+            # increment operations counter
+            counter += 2
+
+    # if got the desired result
+    if pasted_chars == n:
+        return counter
+    else:
+        return 0
