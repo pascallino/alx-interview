@@ -32,11 +32,11 @@ def minOperations(n):
     numcp = 0
     div = 0
     op_list = []
+    if not n:
+        return 0
     if is_prime(n):
         return n
-    if n == 1:
-        return 1
-    if n <= 0 or not (type(n) is int):
+    if n <= 1 or not (type(n) is int):
         return 0
     factor = calculate_factors(n)
     for i, value in enumerate(factor):
@@ -66,7 +66,7 @@ def minOperations(n):
                 numcp = numcp + copy
                 op_list.append('paste')
                 if numcp > n:
-                    return false
+                    return 0
                 if numcp in factor:
                     getindex = factor.index(numcp)
                     break
