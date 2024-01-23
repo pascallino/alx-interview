@@ -39,11 +39,11 @@ try:
                 # Reset counters and hashtable for the next 10 lines
                 counter = 0
 
-except KeyboardInterrupt:
-    # Handle Ctrl+C interruption, print current statistics, and exit
+except Exception as err:
+    pass
+
+finally:
     print('File size: {}'.format(total_size))
     for key, value in sorted(hashtable.items()):
-        if value > 0:
+        if value != 0:
             print('{}: {}'.format(key, value))
-
-    sys.exit(0)
