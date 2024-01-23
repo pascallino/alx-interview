@@ -6,7 +6,7 @@ import re
 if __name__ == "__main__":
     # Initialize hashtable
     hashtable = {"file_size": 0, "counter": 0,
-                 200: 0, 301 : 0, 400: 0,
+                 200: 0, 301: 0, 400: 0,
                  401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
 
     try:
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         # Handle Ctrl+C interruption, print current statistics, and exit
         print(f'File size: {hashtable["file_size"]}')
         for status in [200, 301, 400, 401, 403, 404, 405, 500]:
-            if status in hashtable and hashtable[status] > 0:\
+            if status in hashtable and hashtable[status] > 0:
                 print(f'{status}: {hashtable[status]}')
 
         sys.exit(0)
