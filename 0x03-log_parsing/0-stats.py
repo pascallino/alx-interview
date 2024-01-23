@@ -12,12 +12,13 @@ total_size = 0
 
 try:
     # Iterate through each line and extract status code and file size
-    for line in sys.stdin:
-        line_list = line.split(" ")
+    input_lines = sys.stdin.readlines()
+    for line in input_lines:
+        match = re.match(r'.* ".*" (\d+) (\d+)', line)
 
-        if len(line_list) > 4:
-            status_code = line_list[-2]
-            file_size = int(line_list[-1])
+        if match:
+            status_code = match.group(1)
+            file_size = int(match.group(2))
 
             # Increment status code count
             if status_code in hashtable.keys():
