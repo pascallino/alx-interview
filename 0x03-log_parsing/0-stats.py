@@ -11,10 +11,11 @@ hashtable = {"file_size": 0, "counter": 0,
 try:
     # Iterate through each line and extract status code and file size
     for line in sys.stdin:
-        match = re.match(r'.* ".*" (\d+) (\d+)', line)
-        if match:
-            status_code = int(match.group(1))
-            file_size = int(match.group(2))
+        line_list = line.split(" ")
+
+        if len(line_list) > 4:
+            status_code = int(line_list[-2])
+            file_size = int(line_list[-1])
 
             # Increment status code count
             if status_code in hashtable:
