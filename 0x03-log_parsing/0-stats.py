@@ -30,13 +30,11 @@ if __name__ == "__main__":
                     for status in [200, 301, 400, 401, 403, 404, 405, 500]:
                         if status in hashtable["status_counts"] and\
                            hashtable["status_counts"][status] > 0:
-                            print(f'{status}:\
-                                {hashtable["status_counts"][status]}')
+                            print(\
+                                f'{status}: {hashtable["status_counts"][status]}')
 
                     # Reset counters and hashtable for the next 10 lines
                     hashtable['counter'] = 0
-                    hashtable["file_size"] = 0
-                    hashtable["status_counts"] = {}
 
     except KeyboardInterrupt:
         # Handle Ctrl+C interruption, print current statistics, and exit
