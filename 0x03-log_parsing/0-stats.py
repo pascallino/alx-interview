@@ -20,10 +20,8 @@ try:
             file_size = int(line_list[-1])
 
             # Increment status code count
-            if status_code in hashtable:
+            if status_code in hashtable.keys():
                 hashtable[status_code] += 1
-            else:
-                hashtable[status_code] = 1
 
             # Accumulate total file size
             total_size += file_size
