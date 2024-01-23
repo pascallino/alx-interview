@@ -17,7 +17,7 @@ try:
         match = re.match(r'.* ".*" (\d+) (\d+)', line)
 
         if match:
-            status_code = match.group(1)
+            status_code = str(match.group(1))
             file_size = int(match.group(2))
 
             # Increment status code count
