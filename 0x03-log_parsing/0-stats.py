@@ -31,13 +31,14 @@ try:
 
             # Check if it's time to print statistics
             if counter == 10:
+                counter = 0
                 print('File size: {}'.format(total_size))
                 for key, value in sorted(hashtable.items()):
-                    if value > 0:
+                    if value != 0:
                         print('{}: {}'.format(key, value))
 
                 # Reset counters and hashtable for the next 10 lines
-                counter = 0
+                
 
 except Exception as err:
     pass
