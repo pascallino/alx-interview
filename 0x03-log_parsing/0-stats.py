@@ -4,9 +4,11 @@ import sys
 import re
 
 # Initialize hashtable
-hashtable = {"file_size": 0, "counter": 0,
+hashtable = {
              200: 0, 301: 0, 400: 0,
              401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
+counter = 0
+file = 0
 
 try:
     # Iterate through each line and extract status code and file size
@@ -24,24 +26,24 @@ try:
                 hashtable[status_code] = 1
 
             # Accumulate total file size
-            hashtable["file_size"] += file_size
-            hashtable['counter'] += 1
+            file += file_size
+            counter += 1
 
             # Check if it's time to print statistics
-            if hashtable['counter'] == 10:
-                print('File size: {}'.format(hashtable["file_size"]))
-                for s in [200, 301, 400, 401, 403, 404, 405, 500]:
-                    if s in hashtable and hashtable[s] > 0:
-                        print('{}: {}'.format(s, hashtable[s]))
+            if counter == 10:
+                print('File size: {}'.format(file))
+                for key, value in sorted(hashtable.items()):
+                    if value > 0:
+                        print('{}: {}'.format(key, value))
 
                 # Reset counters and hashtable for the next 10 lines
-                hashtable['counter'] = 0
+                counter = 0
 
 except KeyboardInterrupt:
     # Handle Ctrl+C interruption, print current statistics, and exit
-    print('File size: {}'.format(hashtable["file_size"]))
-    for status in [200, 301, 400, 401, 403, 404, 405, 500]:
-        if status in hashtable and hashtable[status] > 0:
-            print('{}: {}'.format(status, hashtable[status]))
+    print('File size: {}'.format(file))
+    for key, value in sorted(hashtable.items()):
+        if value > 0:
+            print('{}: {}'.format(key, value))
 
     sys.exit(0)
