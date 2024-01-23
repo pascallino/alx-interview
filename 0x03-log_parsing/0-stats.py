@@ -8,7 +8,7 @@ hashtable = {
              200: 0, 301: 0, 400: 0,
              401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
 counter = 0
-file = 0
+total_size = 0
 
 try:
     # Iterate through each line and extract status code and file size
@@ -26,12 +26,12 @@ try:
                 hashtable[status_code] = 1
 
             # Accumulate total file size
-            file += file_size
+            total_size += file_size
             counter += 1
 
             # Check if it's time to print statistics
             if counter == 10:
-                print('File size: {}'.format(file))
+                print('File size: {}'.format(total_size))
                 for key, value in sorted(hashtable.items()):
                     if value > 0:
                         print('{}: {}'.format(key, value))
@@ -41,7 +41,7 @@ try:
 
 except KeyboardInterrupt:
     # Handle Ctrl+C interruption, print current statistics, and exit
-    print('File size: {}'.format(file))
+    print('File size: {}'.format(total_size))
     for key, value in sorted(hashtable.items()):
         if value > 0:
             print('{}: {}'.format(key, value))
