@@ -6,16 +6,17 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
-    # Initialize an array to store the fewest number of
-    # coins for each total
-    dp = [float('inf')] * (total + 1)
-    dp[0] = 0  # Base case: 0 coins needed to make total 0
-
-    # Iterate through each coin value
-    for coin in coins:
-        for i in range(coin, total + 1):
-            # Update dp[i] with the fewest number
-            # of coins needed to make total i
-            dp[i] = min(dp[i], dp[i - coin] + 1)
-
-    return dp[total] if dp[total] != float('inf') else -1
+    sorted_array = sorted(coins, reverse=True)
+    rem = total
+    ind = 0
+    change = 0
+    n = len(coins) - 1
+    while (rem > 0):
+        if ind > n:
+            return -1
+        if rem - sorted_array[ind] >= 0:
+            change = change + 1
+            rem = rem - sorted_array[ind]
+        else:
+            ind = ind + 1
+    return change
